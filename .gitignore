@@ -1,0 +1,10 @@
+# R session files
+.Rhistory
+.RData
+.Rproj.user/
+
+# shinyapps.io deployment records (created by rsconnect)
+rsconnect/
+
+# trained models are large; the demo models are deployed but not stored in git
+SavedModels/*.rds
