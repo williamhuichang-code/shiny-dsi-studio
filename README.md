@@ -131,6 +131,5 @@ screenshots/               README screenshots and slideshow
 
 ## Credits
 
-- Course: DATA423 Data Science in Industry, University of Canterbury (lecturer: Phil Davies).
 - Built with [shiny](https://shiny.posit.co/), [bs4Dash](https://rinterface.github.io/bs4Dash/), [caret](https://topepo.github.io/caret/) and [recipes](https://recipes.tidymodels.org/).
 - The hosting changes (file upload, per-visitor model storage, single-core training when hosted) were made with AI-assisted coding.
