@@ -2,9 +2,78 @@
 
 A point-and-click R Shiny app that takes any CSV through a complete modelling workflow: exploratory analysis, missing-data and outlier handling, preprocessing, and comparing 30+ regression models, with every step reproducible and every stage's data downloadable.
 
-Built for the University of Canterbury course *Data Science in Industry* (DATA423, grade A+) as one modular framework reused across three assignments on manufacturing, public-health and clinical data.
+Built for the University of Canterbury course *Data Science in Industry* (DATA423, grade A+). The framework grew across three assignments, each adding a stage of the workflow: exploratory analysis (A1), missing data and outliers (A2), and model selection (A3).
 
 **[▶ Try the live app](https://williamhuichang.shinyapps.io/dsi-studio/)** (free hosting: the first load after a quiet spell takes about a minute)
+
+![DSI Studio walkthrough](screenshots/slideshow.gif)
+
+*A walkthrough of 15 views, from data roles through EDA, missing data and outliers to model selection. Full-size screenshots with captions are below.*
+
+<details>
+<summary><b>📸 All 15 screenshots (click to expand)</b></summary>
+
+**1. Config: drag-and-drop column roles and a seeded, stratified train/test split (A3)**
+
+![Config: drag-and-drop column roles and a seeded, stratified train/test split (A3)](screenshots/1_dataroles.png)
+
+**2. EDA: word cloud of all values, exposing disguised missing codes such as `-99` and `--` (A2)**
+
+![EDA: word cloud of all values, exposing disguised missing codes such as `-99` and `--` (A2)](screenshots/2_eda1.png)
+
+**3. EDA: missingness map grouped by healthcare basis, showing missingness differs by group (A2)**
+
+![EDA: missingness map grouped by healthcare basis, showing missingness differs by group (A2)](screenshots/3_eda2.png)
+
+**4. EDA: variable types and missingness with rows sorted by population density (A2)**
+
+![EDA: variable types and missingness with rows sorted by population density (A2)](screenshots/4_eda3.png)
+
+**5. EDA: rising-value graph to check each numeric variable for gaps and odd values (A3)**
+
+![EDA: rising-value graph to check each numeric variable for gaps and odd values (A3)](screenshots/5_eda4.png)
+
+**6. EDA: pairs plot coloured by train/test split, checking the split is balanced (A3)**
+
+![EDA: pairs plot coloured by train/test split, checking the split is balanced (A3)](screenshots/6_eda5.png)
+
+**7. EDA: standardised boxplots with outliers labelled by patient ID (A3)**
+
+![EDA: standardised boxplots with outliers labelled by patient ID (A3)](screenshots/7_eda6.png)
+
+**8. Missing data: thresholds for dropping variables and observations with too many missing values (A2)**
+
+![Missing data: thresholds for dropping variables and observations with too many missing values (A2)](screenshots/8_miss1.png)
+
+**9. Missing data: comparing KNN and bagged-tree imputation against the observed distributions (A3)**
+
+![Missing data: comparing KNN and bagged-tree imputation against the observed distributions (A3)](screenshots/9_missi2.png)
+
+**10. Missing data: a decision tree predicting how many values an observation is missing, a check for non-random missingness (A2)**
+
+![Missing data: a decision tree predicting how many values an observation is missing, a check for non-random missingness (A2)](screenshots/10_miss3.png)
+
+**11. Outliers: consensus across six detection methods; the tallest bars are flagged by the most methods (A3)**
+
+![Outliers: consensus across six detection methods; the tallest bars are flagged by the most methods (A3)](screenshots/11_out1.png)
+
+**12. Available methods: map of 239 caret models, grouped by model family**
+
+![Available methods: map of 239 caret models, grouped by model family](screenshots/12_model1.png)
+
+**13. Methods: tuning an SVM (polynomial kernel), RMSE by cost and degree**
+
+![Methods: tuning an SVM (polynomial kernel), RMSE by cost and degree](screenshots/13_model2.png)
+
+**14. Model selection: cross-validated MAE, RMSE and R² for ~30 trained models**
+
+![Model selection: cross-validated MAE, RMSE and R² for ~30 trained models](screenshots/14_model3.png)
+
+**15. Performance: the chosen model (glmnet) on unseen test data, with R² 0.77 and residual checks**
+
+![Performance: the chosen model (glmnet) on unseen test data, with R² 0.77 and residual checks](screenshots/15_model4.png)
+
+</details>
 
 ## What it does
 
@@ -19,17 +88,19 @@ The sidebar follows the order of a real analysis. Each stage passes its cleaned 
 | **Models** | Browse caret's model catalogue as a table or map, then train models from 7 families (null baseline, linear/regularised, trees, kernel methods, ensembles, neural networks, wildcards such as MARS and M5). Each model gets its own chain of up to 31 preprocessing steps (imputation, transforms, PCA/PLS, dummy coding, interactions and more) |
 | **Selection & performance** | Compare cross-validated results across all trained models, pick one, and check it on the held-out test set |
 
-## Try it with the bundled data
+## Three assignments, one app
 
-Three datasets are included (synthetic data provided for the DATA423 course), with their roles pre-set:
+Each assignment came with its own dataset (synthetic data provided for the course), and all three are bundled with their roles pre-set. Pick one from the dropdown in the header.
 
-- **A3_clinical.csv** (opens by default): predict a patient response from reagent measurements and lifestyle factors.
-- **A2_public_health.csv**: predict death rates from health and economic indicators; about 15% of values are missing.
-- **A1_manufacturing.csv**: 30 sensor readings plus categorical process variables; good for EDA and outliers.
+| Assignment | Dataset | Focus | Where to look |
+|---|---|---|---|
+| **A1: Exploratory analysis** | `A1_manufacturing.csv`: a manufacturing process with 30 sensor readings and categorical process variables | Use EDA graphics to reveal data problems before any modelling: missing-value patterns, suspicious or disguised values, outliers and relationships between variables | **EDA** tabs |
+| **A2: Missing data and outliers** | `A2_public_health.csv`: death rates with health and economic indicators; about 15% of values missing | Handle missingness and outliers properly: find disguised missing codes, treat "not applicable" values, drop excessively missing data, compare imputation methods, and flag outliers with several methods | **Miss Strategy** and **Out Strategy** |
+| **A3: Model selection** | `A3_clinical.csv` (opens by default): patient response from reagent measurements and lifestyle factors | Build a preprocessing pipeline per model, train and compare many model types, choose one, and test it on unseen data | **Methods**, **Model Selection**, **Performance** |
 
-Or use **Upload CSV** in the header to load your own file (up to 10 MB).
+You can also use **Upload CSV** in the header to load your own file (up to 10 MB).
 
-**Tip for a quick look:** open *Methods*, pick a model such as `glmnet` and click **Load** to load a pre-trained demo model instead of training it, then go to *Model Selection* and *Performance*.
+**Quick look at A3:** open *Methods → OLS*, pick `glmnet` and click **Load** to use a pre-trained model instead of training one, then open *Model Selection* and *Performance*. A3 is split into train and test sets automatically, and A2 uses its own `OBS_TYPE` column; for A1 or your own data, create the split in *Config → Data Roles* and stratify it by the outcome.
 
 ## How it's built
 
@@ -55,6 +126,7 @@ global.R, ui.R, server.R   app entry points and configuration
 modules/                   config, eda, miss, out and method modules
 data/                      the three bundled datasets
 deploy.R                   one-command deployment to shinyapps.io
+screenshots/               README screenshots and slideshow
 ```
 
 ## Credits
