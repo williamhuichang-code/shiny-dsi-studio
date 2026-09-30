@@ -109,6 +109,10 @@ You can also use **Upload CSV** in the header to load your own file (up to 10 MB
 - **Config-driven:** dataset-specific defaults (roles, seeds, preprocessing per model) live in `global.R`, so the same app serves any dataset.
 - **Reproducible:** fixed seeds for splitting and model training; trained models are saved and can be reloaded.
 
+## Next steps
+
+- **Classification:** extend the app from regression to classification, so it can also model categorical outcomes (e.g. yes/no, or several classes). This means classification models and preprocessing defaults in the Methods tabs, classification metrics (accuracy, Kappa, ROC/AUC, confusion matrices) in Model Selection and Performance, and class balance checks in the train/test split.
+
 ## Run it locally
 
 Requires R (4.3+) and the packages loaded in `global.R` and `modules/method/mod_meth_shared.R`.
@@ -131,5 +135,6 @@ screenshots/               README screenshots and slideshow
 
 ## Credits
 
+- Course: DATA423 Data Science in Industry, University of Canterbury (lecturer: Phil Davies).
 - Built with [shiny](https://shiny.posit.co/), [bs4Dash](https://rinterface.github.io/bs4Dash/), [caret](https://topepo.github.io/caret/) and [recipes](https://recipes.tidymodels.org/).
 - The hosting changes (file upload, per-visitor model storage, single-core training when hosted) were made with AI-assisted coding.
